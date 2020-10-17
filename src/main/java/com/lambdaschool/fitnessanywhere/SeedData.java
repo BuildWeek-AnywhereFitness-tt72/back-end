@@ -1,7 +1,5 @@
 package com.lambdaschool.fitnessanywhere;
 
-import com.github.javafaker.BackToTheFuture;
-import com.github.javafaker.ChuckNorris;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
@@ -114,9 +112,7 @@ public class SeedData
                 new User();
                 User fakeUser;
 
-                fakeUser = new User(faker.harryPotter()
-                        .character()
-                        .split("\\s")[0],
+                fakeUser = new User(faker.name().username(),
                     "password");
 //                    nameFaker.internet()
 //                        .emailAddress());
