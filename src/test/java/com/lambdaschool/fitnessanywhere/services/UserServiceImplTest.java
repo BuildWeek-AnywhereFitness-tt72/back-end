@@ -5,7 +5,7 @@ import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
 import com.lambdaschool.fitnessanywhere.models.Role;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.models.UserRoles;
-import com.lambdaschool.fitnessanywhere.models.Useremail;
+//import com.lambdaschool.fitnessanywhere.models.Useremail;
 import com.lambdaschool.fitnessanywhere.repository.UserRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -60,8 +60,8 @@ public class UserServiceImplTest
 
         // admin, data, user
         User u1 = new User("testadmin",
-            "ILuvM4th!",
-            "admin@lambdaschool.local");
+            "ILuvM4th!");
+//            "admin@lambdaschool.local");
         u1.getRoles()
             .add(new UserRoles(u1,
                 r1));
@@ -72,19 +72,19 @@ public class UserServiceImplTest
             .add(new UserRoles(u1,
                 r3));
 
-        u1.getUseremails()
-            .add(new Useremail(u1,
-                "admin@email.local"));
-        u1.getUseremails()
-            .get(0)
-            .setUseremailid(10);
-
-        u1.getUseremails()
-            .add(new Useremail(u1,
-                "admin@mymail.local"));
-        u1.getUseremails()
-            .get(1)
-            .setUseremailid(11);
+//        u1.getUseremails()
+//            .add(new Useremail(u1,
+//                "admin@email.local"));
+//        u1.getUseremails()
+//            .get(0)
+//            .setUseremailid(10);
+//
+//        u1.getUseremails()
+//            .add(new Useremail(u1,
+//                "admin@mymail.local"));
+//        u1.getUseremails()
+//            .get(1)
+//            .setUseremailid(11);
 
         u1.setUserid(101);
         userList.add(u1);
@@ -92,8 +92,8 @@ public class UserServiceImplTest
         // data, user
         ArrayList<UserRoles> datas = new ArrayList<>();
         User u2 = new User("cinnamon",
-            "1234567",
-            "cinnamon@lambdaschool.local");
+            "1234567");
+//            "cinnamon@lambdaschool.local");
         u1.getRoles()
             .add(new UserRoles(u2,
                 r2));
@@ -101,51 +101,51 @@ public class UserServiceImplTest
             .add(new UserRoles(u2,
                 r3));
 
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "cinnamon@mymail.local"));
-        u2.getUseremails()
-            .get(0)
-            .setUseremailid(20);
-
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "hops@mymail.local"));
-        u2.getUseremails()
-            .get(1)
-            .setUseremailid(21);
-
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "bunny@email.local"));
-        u2.getUseremails()
-            .get(2)
-            .setUseremailid(22);
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "cinnamon@mymail.local"));
+//        u2.getUseremails()
+//            .get(0)
+//            .setUseremailid(20);
+//
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "hops@mymail.local"));
+//        u2.getUseremails()
+//            .get(1)
+//            .setUseremailid(21);
+//
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "bunny@email.local"));
+//        u2.getUseremails()
+//            .get(2)
+//            .setUseremailid(22);
 
         u2.setUserid(102);
         userList.add(u2);
 
         // user
         User u3 = new User("testingbarn",
-            "ILuvM4th!",
-            "testingbarn@school.lambda");
+            "ILuvM4th!");
+//            "testingbarn@school.lambda");
         u3.getRoles()
             .add(new UserRoles(u3,
                 r1));
 
-        u3.getUseremails()
-            .add(new Useremail(u3,
-                "barnbarn@email.local"));
-        u3.getUseremails()
-            .get(0)
-            .setUseremailid(30);
+//        u3.getUseremails()
+//            .add(new Useremail(u3,
+//                "barnbarn@email.local"));
+//        u3.getUseremails()
+//            .get(0)
+//            .setUseremailid(30);
 
         u3.setUserid(103);
         userList.add(u3);
 
         User u4 = new User("testingcat",
-            "password",
-            "testingcat@school.lambda");
+            "password");
+//            "testingcat@school.lambda");
         u4.getRoles()
             .add(new UserRoles(u4,
                 r2));
@@ -154,8 +154,8 @@ public class UserServiceImplTest
         userList.add(u4);
 
         User u5 = new User("testingdog",
-            "password",
-            "testingdog@school.lambda");
+            "password");
+//            "testingdog@school.lambda");
         u4.getRoles()
             .add(new UserRoles(u5,
                 r2));
@@ -282,14 +282,14 @@ public class UserServiceImplTest
         r2.setRoleid(2);
 
         User u2 = new User("tiger",
-            "ILuvMath!",
-            "tiger@school.lambda");
+            "ILuvMath!");
+//            "tiger@school.lambda");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "tiger@tiger.local"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "tiger@tiger.local"));
 
         Mockito.when(userrepos.save(any(User.class)))
             .thenReturn(u2);
@@ -306,14 +306,14 @@ public class UserServiceImplTest
         r2.setRoleid(2);
 
         User u2 = new User("tiger",
-            "ILuvMath!",
-            "tiger@school.lambda");
+            "ILuvMath!");
+//            "tiger@school.lambda");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "tiger@tiger.local"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "tiger@tiger.local"));
         u2.setUserid(103L);
 
         Mockito.when(userrepos.findById(103L))
@@ -334,21 +334,21 @@ public class UserServiceImplTest
         r2.setRoleid(2);
 
         User u2 = new User("cinnamon",
-            "password",
-            "cinnamon@school.lambda");
+            "password");
+//            "cinnamon@school.lambda");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
 
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "cinnamon@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "hops@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "bunny@email.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "cinnamon@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "hops@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "bunny@email.thump"));
 
         Mockito.when(userrepos.findById(103L))
             .thenReturn(Optional.of(userList.get(2)));
@@ -359,12 +359,12 @@ public class UserServiceImplTest
         Mockito.when(userrepos.save(any(User.class)))
             .thenReturn(u2);
 
-        assertEquals("bunny@email.thump",
-            userService.update(u2,
-                103L)
-                .getUseremails()
-                .get(2)
-                .getUseremail());
+//        assertEquals("bunny@email.thump",
+//            userService.update(u2,
+//                103L)
+//                .getUseremails()
+//                .get(2)
+//                .getUseremail());
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -374,21 +374,21 @@ public class UserServiceImplTest
         r2.setRoleid(2);
 
         User u2 = new User("cinnamon",
-            "password",
-            "cinnamon@school.lambda");
+            "password");
+//            "cinnamon@school.lambda");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
 
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "cinnamon@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "hops@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "bunny@email.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "cinnamon@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "hops@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "bunny@email.thump"));
 
         Mockito.when(userrepos.findById(103L))
             .thenReturn(Optional.empty());
@@ -399,12 +399,12 @@ public class UserServiceImplTest
         Mockito.when(userrepos.save(any(User.class)))
             .thenReturn(u2);
 
-        assertEquals("bunny@email.thump",
-            userService.update(u2,
-                103L)
-                .getUseremails()
-                .get(2)
-                .getUseremail());
+//        assertEquals("bunny@email.thump",
+//            userService.update(u2,
+//                103L)
+//                .getUseremails()
+//                .get(2)
+//                .getUseremail());
     }
 
     @Test(expected = ResourceNotFoundException.class)
@@ -414,21 +414,21 @@ public class UserServiceImplTest
         r2.setRoleid(2);
 
         User u2 = new User("cinnamon",
-            "password",
-            "cinnamon@school.lambda");
+            "password");
+//            "cinnamon@school.lambda");
         u2.getRoles()
             .add(new UserRoles(u2,
                 r2));
 
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "cinnamon@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "hops@mymail.thump"));
-        u2.getUseremails()
-            .add(new Useremail(u2,
-                "bunny@email.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "cinnamon@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "hops@mymail.thump"));
+//        u2.getUseremails()
+//            .add(new Useremail(u2,
+//                "bunny@email.thump"));
 
         Mockito.when(userrepos.findById(103L))
             .thenReturn(Optional.of(u2));
@@ -439,12 +439,12 @@ public class UserServiceImplTest
         Mockito.when(userrepos.save(any(User.class)))
             .thenReturn(u2);
 
-        assertEquals("bunny@email.thump",
-            userService.update(u2,
-                103L)
-                .getUseremails()
-                .get(2)
-                .getUseremail());
+//        assertEquals("bunny@email.thump",
+//            userService.update(u2,
+//                103L)
+ //               .getUseremails()
+//                .get(2)
+//                .getUseremail());
     }
 
     @Test

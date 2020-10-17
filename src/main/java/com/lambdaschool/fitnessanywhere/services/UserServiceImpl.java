@@ -4,7 +4,7 @@ import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
 import com.lambdaschool.fitnessanywhere.models.Role;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.models.UserRoles;
-import com.lambdaschool.fitnessanywhere.models.Useremail;
+//import com.lambdaschool.fitnessanywhere.models.Useremail;
 import com.lambdaschool.fitnessanywhere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,8 +101,8 @@ public class UserServiceImpl
         newUser.setUsername(user.getUsername()
             .toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
-        newUser.setPrimaryemail(user.getPrimaryemail()
-            .toLowerCase());
+//        newUser.setPrimaryemail(user.getPrimaryemail()
+//            .toLowerCase());
 
         newUser.getRoles()
             .clear();
@@ -115,14 +115,14 @@ public class UserServiceImpl
                     addRole));
         }
 
-        newUser.getUseremails()
-            .clear();
-        for (Useremail ue : user.getUseremails())
-        {
-            newUser.getUseremails()
-                .add(new Useremail(newUser,
-                    ue.getUseremail()));
-        }
+//        newUser.getUseremails()
+//            .clear();
+//        for (Useremail ue : user.getUseremails())
+//        {
+//            newUser.getUseremails()
+//                .add(new Useremail(newUser,
+//                    ue.getUseremail()));
+//        }
 
         return userrepos.save(newUser);
     }
@@ -150,11 +150,11 @@ public class UserServiceImpl
                 currentUser.setPasswordNoEncrypt(user.getPassword());
             }
 
-            if (user.getPrimaryemail() != null)
-            {
-                currentUser.setPrimaryemail(user.getPrimaryemail()
-                    .toLowerCase());
-            }
+//            if (user.getPrimaryemail() != null)
+//            {
+//                currentUser.setPrimaryemail(user.getPrimaryemail()
+//                    .toLowerCase());
+//            }
 
             if (user.getRoles()
                 .size() > 0)
@@ -172,18 +172,18 @@ public class UserServiceImpl
                 }
             }
 
-            if (user.getUseremails()
-                .size() > 0)
-            {
-                currentUser.getUseremails()
-                    .clear();
-                for (Useremail ue : user.getUseremails())
-                {
-                    currentUser.getUseremails()
-                        .add(new Useremail(currentUser,
-                            ue.getUseremail()));
-                }
-            }
+//            if (user.getUseremails()
+//                .size() > 0)
+//            {
+//                currentUser.getUseremails()
+//                    .clear();
+//                for (Useremail ue : user.getUseremails())
+//                {
+//                    currentUser.getUseremails()
+//                        .add(new Useremail(currentUser,
+//                            ue.getUseremail()));
+//                }
+//            }
 
             return userrepos.save(currentUser);
         } else

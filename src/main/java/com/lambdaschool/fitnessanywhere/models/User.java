@@ -44,22 +44,22 @@ public class User
     private String password;
 
     /**
-     * Primary email account of user. Could be used as the userid. Cannot be null and must be unique.
-     */
-    @NotNull
-    @Column(unique = true)
-    @Email
-    private String primaryemail;
+//     * Primary email account of user. Could be used as the userid. Cannot be null and must be unique.
+//     */
+//    @NotNull
+//    @Column(unique = true)
+//    @Email
+//    private String primaryemail;
 
-    /**
-     * A list of emails for this user
-     */
-    @OneToMany(mappedBy = "user",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user",
-        allowSetters = true)
-    private List<Useremail> useremails = new ArrayList<>();
+//    /**
+//     * A list of emails for this user
+//     */
+//    @OneToMany(mappedBy = "user",
+//        cascade = CascadeType.ALL,
+//        orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "user",
+//        allowSetters = true)
+//    private List<Useremail> useremails = new ArrayList<>();
 
     /**
      * Part of the join relationship between user and role
@@ -90,12 +90,12 @@ public class User
      */
     public User(
         String username,
-        String password,
-        String primaryemail)
+        String password)
+    //    String primaryemail)
     {
         setUsername(username);
         setPassword(password);
-        this.primaryemail = primaryemail;
+     //   this.primaryemail = primaryemail;
     }
 
     /**
@@ -143,20 +143,20 @@ public class User
      *
      * @return the primary email (String) for the user converted to lowercase
      */
-    public String getPrimaryemail()
-    {
-        return primaryemail;
-    }
-
-    /**
-     * setter for primary email
-     *
-     * @param primaryemail the new primary email (String) for the user converted to lowercase
-     */
-    public void setPrimaryemail(String primaryemail)
-    {
-        this.primaryemail = primaryemail.toLowerCase();
-    }
+//    public String getPrimaryemail()
+//    {
+//        return primaryemail;
+//    }
+//
+//    /**
+//     * setter for primary email
+//     *
+//     * @param primaryemail the new primary email (String) for the user converted to lowercase
+//     */
+//    public void setPrimaryemail(String primaryemail)
+//    {
+//        this.primaryemail = primaryemail.toLowerCase();
+//    }
 
     /**
      * Getter for the password
@@ -192,20 +192,20 @@ public class User
      *
      * @return the list of useremails (List(Useremail)) for this user
      */
-    public List<Useremail> getUseremails()
-    {
-        return useremails;
-    }
-
-    /**
-     * Setter for list of useremails for this user
-     *
-     * @param useremails the new list of useremails (List(Useremail)) for this user
-     */
-    public void setUseremails(List<Useremail> useremails)
-    {
-        this.useremails = useremails;
-    }
+//    public List<Useremail> getUseremails()
+//    {
+//        return useremails;
+//    }
+//
+//    /**
+//     * Setter for list of useremails for this user
+//     *
+//     * @param useremails the new list of useremails (List(Useremail)) for this user
+//     */
+//    public void setUseremails(List<Useremail> useremails)
+//    {
+//        this.useremails = useremails;
+//    }
 
     /**
      * Getter for user role combinations

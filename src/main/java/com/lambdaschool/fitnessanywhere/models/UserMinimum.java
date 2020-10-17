@@ -21,8 +21,8 @@ public class UserMinimum
     /**
      * The user's primary email address (String)
      */
-    @Email
-    private String primaryemail;
+//    @Email
+//    private String primaryemail;
 
     /**
      * Getter for the username
@@ -70,18 +70,18 @@ public class UserMinimum
      *
      * @return the email address (String) for this user
      */
-    public String getPrimaryemail()
-    {
-        return primaryemail;
-    }
+//    public String getPrimaryemail()
+//    {
+//        return primaryemail;
+//    }
 
     /**
      * Setter for email for this user
      *
      * @param primaryemail the new email address (String) for this user.
      */
-    public void setPrimaryemail(String primaryemail)
-    {
-        this.primaryemail = primaryemail;
-    }
+//    public void setPrimaryemail(String primaryemail)
+//    {
+//        this.primaryemail = primaryemail;
+//    }
 }
