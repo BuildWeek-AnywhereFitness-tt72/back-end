@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 // @EnableJpaAuditing
 @SpringBootApplication
 @EnableSwagger2
-public class FoundationApplication
+public class FitnessAnywhereApplication
 {
     /**
      * Main method to start the application.
@@ -19,7 +19,7 @@ public class FoundationApplication
      */
     public static void main(String[] args)
     {
-        SpringApplication.run(FoundationApplication.class,
+        SpringApplication.run(FitnessAnywhereApplication.class,
             args);
     }
 }

@@ -45,13 +45,9 @@ public class Swagger2Config
      */
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("Java Spring BE Foundation")
-            .description("Java Spring Backend Foundation and Scaffolding")
-            .contact(new Contact("John Mitchell",
-                "http://www.lambdaschool.com",
-                "john@lambdaschool.com"))
+        return new ApiInfoBuilder().title("Fitness Anywhere Documentation")
+            .description("TT72 Fitness Anywhere Backend")
             .license("MIT")
-            .licenseUrl("https://github.com/LambdaSchool/java-springfoundation/blob/master/LICENSE")
             .version("1.0.0")
             .build();
     }

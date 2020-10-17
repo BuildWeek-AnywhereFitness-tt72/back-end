@@ -1,7 +1,7 @@
 package com.lambdaschool.fitnessanywhere.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lambdaschool.fitnessanywhere.FoundationApplication;
+import com.lambdaschool.fitnessanywhere.FitnessAnywhereApplication;
 import com.lambdaschool.fitnessanywhere.models.Role;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.models.UserRoles;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // mocking service to test controller
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FoundationApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FitnessAnywhereApplication.class)
 @AutoConfigureMockMvc
 @WithMockUser(username = "admin",
     roles = {"USER", "ADMIN"})

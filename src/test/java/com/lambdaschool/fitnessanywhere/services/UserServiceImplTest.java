@@ -1,6 +1,6 @@
 package com.lambdaschool.fitnessanywhere.services;
 
-import com.lambdaschool.fitnessanywhere.FoundationApplication;
+import com.lambdaschool.fitnessanywhere.FitnessAnywhereApplication;
 import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
 import com.lambdaschool.fitnessanywhere.models.Role;
 import com.lambdaschool.fitnessanywhere.models.User;
@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.anyString;
  * This test class covers 100% of the methods and 100% of the lines in the UserServiceImpl.class
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = FoundationApplication.class)
+@SpringBootTest(classes = FitnessAnywhereApplication.class)
 public class UserServiceImplTest
 {
     @Autowired

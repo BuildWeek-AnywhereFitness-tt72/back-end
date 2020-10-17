@@ -1,6 +1,6 @@
 package com.lambdaschool.fitnessanywhere.controllers;
 
-import com.lambdaschool.fitnessanywhere.FoundationApplication;
+import com.lambdaschool.fitnessanywhere.FitnessAnywhereApplication;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FoundationApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FitnessAnywhereApplication.class)
 @AutoConfigureMockMvc
 @WithUserDetails(value = "admin")
 public class UserControllerIntegrationTest
