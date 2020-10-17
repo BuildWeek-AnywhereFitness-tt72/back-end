@@ -1,0 +1,8 @@
+com.lambdaschool.fitnessanywhere
+com.lambdaschool.fitnessanywhere.config
+com.lambdaschool.fitnessanywhere.controllers
+com.lambdaschool.fitnessanywhere.exceptions
+com.lambdaschool.fitnessanywhere.handlers
+com.lambdaschool.fitnessanywhere.models
+com.lambdaschool.fitnessanywhere.repository
+com.lambdaschool.fitnessanywhere.services
