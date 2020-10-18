@@ -1,9 +1,9 @@
 package com.lambdaschool.fitnessanywhere.repository;
 
-import com.lambdaschool.fitnessanywhere.models.Role;
+import com.lambdaschool.fitnessanywhere.models.Location;
 import org.springframework.data.repository.CrudRepository;
 
 public interface LocationRepository
-        extends CrudRepository<Role, Long>
+        extends CrudRepository<Location, Long>
 {
 }
