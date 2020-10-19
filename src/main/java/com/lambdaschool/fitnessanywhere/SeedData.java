@@ -13,6 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -96,13 +98,17 @@ public class SeedData
         u3.getRoles().add(new UserRoles(u3, r2));
         u3.getRoles().add(new UserRoles(u3, r5));
 
-        Session s1 = new Session("Hagrid's Yoga", "hatha yoga", "10/31/21", "30 minutes",
+        Date date = new GregorianCalendar(2020,11,11).getTime();
+        Location l = new Location("Sesame Street", "New York", "New York", "000000");
+
+        Session s1 = new Session("Hagrid's Yoga", "hatha yoga", date, "30 minutes",
                 "intense", 15);
-
+        s1.setLocations(l);
         sessionService.save(s1);
-        Attendees a1 = new Attendees(s1, u1);
+        Attendees a1 = new Attendees(s1, u1, false);
+        Attendees a2 = new Attendees(s1, u3, true);
         u1.getSessions().add(a1);
-
+        u3.getSessions().add(a2);
 
         userService.save(u1);
         userService.save(u2);

@@ -124,7 +124,7 @@ public class UserServiceImpl
                     .getSessionid());
             newUser.getSessions()
                     .add(new Attendees(addSession,
-                            newUser));
+                            newUser, ar.isInstructor()));
         }
 //        newUser.getUseremails()
 //            .clear();

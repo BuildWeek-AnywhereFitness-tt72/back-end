@@ -17,42 +17,23 @@ public class Session
 
     private String type;
 
-    private String time;
+    private Date time;
 
     private String duration;
 
     private String intensity;
 
     private long maxsize;
-    // this will need to be another model
-    // many to one
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "locationid") // , nullable = false)
     @JsonIgnoreProperties(value = "sessions")
     private Location locations;
 
 
-    // this will need to link to users?
-    // many-to-manY??
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties(value = "sessions")
-    private User instructor;
-
     @OneToMany(mappedBy = "sessions", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "sessions", allowSetters = true)
     private Set<Attendees> users = new HashSet<>();
-
-    public User getInstructor()
-    {
-        return instructor;
-    }
-
-    public void setInstructor(User instructor)
-    {
-        this.instructor = instructor;
-    }
 
     public Set<Attendees> getUsers()
     {
@@ -64,7 +45,7 @@ public class Session
         // required by jpa
     }
 
-    public Session(String name, String type, String time, String duration,
+    public Session(String name, String type, Date time, String duration,
                    String intensity, long maxsize)
     {
         this.name = name;
@@ -74,7 +55,6 @@ public class Session
         this.intensity = intensity;
         this.maxsize = maxsize;
     }
-
     public long getSessionid()
     {
         return sessionid;
@@ -105,12 +85,12 @@ public class Session
         this.type = type;
     }
 
-    public String getTime()
+    public Date getTime()
     {
         return time;
     }
 
-    public void setTime(String time)
+    public void setTime(Date time)
     {
         this.time = time;
     }
@@ -145,23 +125,13 @@ public class Session
         this.maxsize = maxsize;
     }
 
-    public Location getLocation()
+    public Location getLocations()
     {
         return locations;
     }
 
-    public void setLocation(Location locations)
+    public void setLocations(Location locations)
     {
         this.locations = locations;
     }
-
-//    public List<Attendees> getAttendees()
-//    {
-//        return attendees;
-//    }
-//
-//    public void setAttendees(List<Attendees> attendees)
-//    {
-//        this.attendees = attendees;
-//    }
 }

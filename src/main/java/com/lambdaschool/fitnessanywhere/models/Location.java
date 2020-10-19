@@ -18,11 +18,22 @@ public class Location
 
     private String city;
 
-    private Long zip;
+
+    private String state;
+
+    private String zip;
 
     @OneToMany(mappedBy = "locations", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "locations", allowSetters = true)
     private List<Session> sessions = new ArrayList<>();
+
+    public Location(String address, String city, String state, String zip)
+    {
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
 
     public Location()
     {
@@ -48,6 +59,15 @@ public class Location
         this.address = address;
     }
 
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState(String state)
+    {
+        this.state = state;
+    }
     public String getCity()
     {
         return city;
@@ -58,12 +78,12 @@ public class Location
         this.city = city;
     }
 
-    public Long getZip()
+    public String getZip()
     {
         return zip;
     }
 
-    public void setZip(Long zip)
+    public void setZip(String zip)
     {
         this.zip = zip;
     }

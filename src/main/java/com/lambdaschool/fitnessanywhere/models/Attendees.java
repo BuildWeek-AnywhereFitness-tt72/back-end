@@ -23,10 +23,24 @@ public class Attendees implements Serializable
     @JsonIgnoreProperties(value = "sessions")
     private User user;
 
-    public Attendees(Session sessions, User user)
+    private boolean instructor;
+
+    public void setSessions(Session sessions)
+    {
+        this.sessions = sessions;
+    }
+
+//    public Attendees(Session sessions, User user)
+//    {
+//        this.sessions = sessions;
+//        this.user = user;
+//        this.instructor = "random stuff";
+//    }
+    public Attendees(Session sessions, User user, boolean instructor)
     {
         this.sessions = sessions;
         this.user = user;
+        this.instructor = instructor;
     }
 
     public Attendees()
@@ -46,6 +60,16 @@ public class Attendees implements Serializable
     public User getUser()
     {
         return user;
+    }
+
+    public boolean isInstructor()
+    {
+        return instructor;
+    }
+
+    public void setInstructor(boolean instructor)
+    {
+        this.instructor = instructor;
     }
 
     public void setUser(User user)
