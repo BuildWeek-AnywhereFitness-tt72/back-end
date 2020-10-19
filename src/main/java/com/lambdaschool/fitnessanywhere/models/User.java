@@ -72,6 +72,23 @@ public class User
         allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",
+            allowSetters = true)
+    private Set<Attendees> sessions = new HashSet<>();
+
+    public Set<Attendees> getSessions()
+    {
+        return sessions;
+    }
+
+    public void setSessions(Set<Attendees> sessions)
+    {
+        this.sessions = sessions;
+    }
+
     /**
      * Default constructor used primarily by the JPA.
      */

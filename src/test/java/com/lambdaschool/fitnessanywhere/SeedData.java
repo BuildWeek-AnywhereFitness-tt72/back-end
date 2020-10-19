@@ -7,7 +7,9 @@ import com.lambdaschool.fitnessanywhere.models.Role;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.models.UserRoles;
 //import com.lambdaschool.fitnessanywhere.models.Useremail;
+import com.lambdaschool.fitnessanywhere.services.LocationService;
 import com.lambdaschool.fitnessanywhere.services.RoleService;
+import com.lambdaschool.fitnessanywhere.services.SessionService;
 import com.lambdaschool.fitnessanywhere.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +40,12 @@ public class SeedData
      */
     @Autowired
     UserService userService;
+
+    @Autowired
+    LocationService locationService;
+
+    @Autowired
+    SessionService sessionService;
 
     /**
      * Generates test, seed data for our application

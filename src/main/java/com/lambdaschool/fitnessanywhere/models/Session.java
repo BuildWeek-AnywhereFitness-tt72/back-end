@@ -3,9 +3,7 @@ package com.lambdaschool.fitnessanywhere.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "sessions")
@@ -39,6 +37,34 @@ public class Session
     @OneToMany(mappedBy = "sessions", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "sessions")
     private List<Attendees> attendees = new ArrayList<>();
+
+
+    public Location getLocations()
+    {
+        return locations;
+    }
+
+    public void setLocations(Location locations)
+    {
+        this.locations = locations;
+    }
+
+    public Set<Attendees> getUsers()
+    {
+        return users;
+    }
+
+    public void setUsers(Set<Attendees> users)
+    {
+        this.users = users;
+    }
+
+    @OneToMany(mappedBy = "sessions",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "sessions",
+            allowSetters = true)
+    private Set<Attendees> users = new HashSet<>();
 
     public Session()
     {
