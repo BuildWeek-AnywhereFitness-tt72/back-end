@@ -31,7 +31,7 @@ public class SessionServiceImpl implements SessionService
     @Override
     public Session save(Session session)
     {
-        if (session.getAttendees().size() > 0)
+        if (session.getUsers().size() > 0)
         {
             throw new ResourceNotFoundException("Attendees are not updated through " +
                     "Sessions");

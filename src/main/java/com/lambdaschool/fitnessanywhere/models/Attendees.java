@@ -14,7 +14,7 @@ public class Attendees implements Serializable
     @Id
     @ManyToOne
     @JoinColumn(name = "sessionid")
-    @JsonIgnoreProperties(value = "userid")
+    @JsonIgnoreProperties({"user"})
     private Session sessions;
 
     @Id
@@ -23,13 +23,17 @@ public class Attendees implements Serializable
     @JsonIgnoreProperties(value = "sessions")
     private User user;
 
-    private boolean instructor;
+    public Attendees(Session sessions, User user)
+    {
+        this.sessions = sessions;
+        this.user = user;
+    }
 
     public Attendees()
     {
     }
 
-    public Session getSession()
+    public Session getSessions()
     {
         return sessions;
     }
@@ -48,14 +52,5 @@ public class Attendees implements Serializable
     {
         this.user = user;
     }
-
-    public boolean isInstructor()
-    {
-        return instructor;
-    }
-
-    public void setInstructor(boolean instructor)
-    {
-        this.instructor = instructor;
-    }
 }
+

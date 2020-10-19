@@ -17,7 +17,7 @@ public class Session
 
     private String type;
 
-    private Date time;
+    private String time;
 
     private String duration;
 
@@ -28,25 +28,30 @@ public class Session
     // many to one
 
     @ManyToOne
-    @JoinColumn(name = "locationid", nullable = false)
+    @JoinColumn(name = "locationid") // , nullable = false)
     @JsonIgnoreProperties(value = "sessions")
     private Location locations;
+
+
     // this will need to link to users?
     // many-to-manY??
-
-    @OneToMany(mappedBy = "sessions", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "userid")
     @JsonIgnoreProperties(value = "sessions")
-    private List<Attendees> attendees = new ArrayList<>();
+    private User instructor;
 
+    @OneToMany(mappedBy = "sessions", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "sessions", allowSetters = true)
+    private Set<Attendees> users = new HashSet<>();
 
-    public Location getLocations()
+    public User getInstructor()
     {
-        return locations;
+        return instructor;
     }
 
-    public void setLocations(Location locations)
+    public void setInstructor(User instructor)
     {
-        this.locations = locations;
+        this.instructor = instructor;
     }
 
     public Set<Attendees> getUsers()
@@ -54,25 +59,13 @@ public class Session
         return users;
     }
 
-    public void setUsers(Set<Attendees> users)
-    {
-        this.users = users;
-    }
-
-    @OneToMany(mappedBy = "sessions",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties(value = "sessions",
-            allowSetters = true)
-    private Set<Attendees> users = new HashSet<>();
-
     public Session()
     {
         // required by jpa
     }
 
-    public Session(String name, String type, Date time, String duration,
-                   String intensity, long maxsize, Location locations, List<Attendees> attendees)
+    public Session(String name, String type, String time, String duration,
+                   String intensity, long maxsize)
     {
         this.name = name;
         this.type = type;
@@ -80,8 +73,6 @@ public class Session
         this.duration = duration;
         this.intensity = intensity;
         this.maxsize = maxsize;
-        this.locations = locations;
-        this.attendees = attendees;
     }
 
     public long getSessionid()
@@ -114,12 +105,12 @@ public class Session
         this.type = type;
     }
 
-    public Date getTime()
+    public String getTime()
     {
         return time;
     }
 
-    public void setTime(Date time)
+    public void setTime(String time)
     {
         this.time = time;
     }
@@ -164,13 +155,13 @@ public class Session
         this.locations = locations;
     }
 
-    public List<Attendees> getAttendees()
-    {
-        return attendees;
-    }
-
-    public void setAttendees(List<Attendees> attendees)
-    {
-        this.attendees = attendees;
-    }
+//    public List<Attendees> getAttendees()
+//    {
+//        return attendees;
+//    }
+//
+//    public void setAttendees(List<Attendees> attendees)
+//    {
+//        this.attendees = attendees;
+//    }
 }

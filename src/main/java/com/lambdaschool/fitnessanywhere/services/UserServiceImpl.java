@@ -1,9 +1,7 @@
 package com.lambdaschool.fitnessanywhere.services;
 
 import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
-import com.lambdaschool.fitnessanywhere.models.Role;
-import com.lambdaschool.fitnessanywhere.models.User;
-import com.lambdaschool.fitnessanywhere.models.UserRoles;
+import com.lambdaschool.fitnessanywhere.models.*;
 //import com.lambdaschool.fitnessanywhere.models.Useremail;
 import com.lambdaschool.fitnessanywhere.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,9 @@ public class UserServiceImpl
      */
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private SessionService sessionService;
 
     @Autowired
     private HelperFunctions helperFunctions;
@@ -115,6 +116,16 @@ public class UserServiceImpl
                     addRole));
         }
 
+        newUser.getSessions()
+                .clear();
+        for (Attendees ar : user.getSessions())
+        {
+            Session addSession = sessionService.findSessionById(ar.getSessions()
+                    .getSessionid());
+            newUser.getSessions()
+                    .add(new Attendees(addSession,
+                            newUser));
+        }
 //        newUser.getUseremails()
 //            .clear();
 //        for (Useremail ue : user.getUseremails())

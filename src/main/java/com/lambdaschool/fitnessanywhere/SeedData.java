@@ -3,11 +3,10 @@ package com.lambdaschool.fitnessanywhere;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-import com.lambdaschool.fitnessanywhere.models.Role;
-import com.lambdaschool.fitnessanywhere.models.User;
-import com.lambdaschool.fitnessanywhere.models.UserRoles;
+import com.lambdaschool.fitnessanywhere.models.*;
 // import com.lambdaschool.fitnessanywhere.models.Useremail;
 import com.lambdaschool.fitnessanywhere.services.RoleService;
+import com.lambdaschool.fitnessanywhere.services.SessionService;
 import com.lambdaschool.fitnessanywhere.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +37,10 @@ public class SeedData
      */
     @Autowired
     UserService userService;
+
+    @Autowired
+    SessionService sessionService;
+
 
     /**
      * Generates test, seed data for our application
@@ -93,11 +96,19 @@ public class SeedData
         u3.getRoles().add(new UserRoles(u3, r2));
         u3.getRoles().add(new UserRoles(u3, r5));
 
+        Session s1 = new Session("Hagrid's Yoga", "hatha yoga", "10/31/21", "30 minutes",
+                "intense", 15);
+
+        sessionService.save(s1);
+        Attendees a1 = new Attendees(s1, u1);
+        u1.getSessions().add(a1);
+
+
         userService.save(u1);
         userService.save(u2);
         userService.save(u3);
 
-        if (true)
+        if (false)
         {
             // using JavaFaker create a bunch of regular users
             // https://www.baeldung.com/java-faker

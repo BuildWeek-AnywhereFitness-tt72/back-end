@@ -15,7 +15,6 @@ public interface SessionService
     // add user to Attendeees
     Session save(Session session, User user, boolean instructor);
 
-
     Session findSessionById(long id);
 
 
