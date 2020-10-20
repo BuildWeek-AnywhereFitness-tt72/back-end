@@ -75,6 +75,9 @@ public class OpenController
         Set<UserRoles> newRoles = new HashSet<>();
         newRoles.add(new UserRoles(newuser,
             roleService.findByName("user")));
+        String role = newminuser.getRole();
+        System.out.println(role);
+        newRoles.add(new UserRoles(newuser, roleService.findByName(role)));
         newuser.setRoles(newRoles);
 
         newuser = userService.save(newuser);

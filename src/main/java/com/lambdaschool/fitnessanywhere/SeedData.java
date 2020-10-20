@@ -8,14 +8,15 @@ import com.lambdaschool.fitnessanywhere.models.*;
 import com.lambdaschool.fitnessanywhere.services.RoleService;
 import com.lambdaschool.fitnessanywhere.services.SessionService;
 import com.lambdaschool.fitnessanywhere.services.UserService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
@@ -53,10 +54,11 @@ public class SeedData
      *
      * @param args The parameter is required by the parent interface but is not used in this process.
      */
+
     @Transactional
     @Override
     public void run(String[] args) throws
-                                   Exception
+    Exception
     {
         userService.deleteAll();
         roleService.deleteAll();
@@ -98,48 +100,87 @@ public class SeedData
         u3.getRoles().add(new UserRoles(u3, r2));
         u3.getRoles().add(new UserRoles(u3, r5));
 
-        Date date = new GregorianCalendar(2020,11,11).getTime();
-        Location l = new Location("Sesame Street", "New York", "New York", "000000");
-
-        Session s1 = new Session("Hagrid's Yoga", "hatha yoga", date, "30 minutes",
-                "intense", 15);
-        s1.setLocations(l);
-        sessionService.save(s1);
-        Attendees a1 = new Attendees(s1, u1, false);
-        Attendees a2 = new Attendees(s1, u3, true);
-        u1.getSessions().add(a1);
-        u3.getSessions().add(a2);
+//        Date date = new GregorianCalendar(2020,11,11).getTime();
+//        Location l = new Location("Sesame Street", "New York", "New York", "000000");
+//
+//        Session s1 = new Session("Hagrid's Yoga", "hatha yoga", date, "30 minutes",
+//                "intense", 15);
+//        s1.setLocations(l);
+//        sessionService.save(s1);
+//        Attendees a1 = new Attendees(s1, u1, false);
+//        Attendees a2 = new Attendees(s1, u3, true);
+//        u1.getSessions().add(a1);
+//        u3.getSessions().add(a2);
 
         userService.save(u1);
         userService.save(u2);
         userService.save(u3);
 
-        if (false)
+        if (true)
         {
             // using JavaFaker create a bunch of regular users
             // https://www.baeldung.com/java-faker
             // https://www.baeldung.com/regular-expressions-java
-
+            Random rand = new Random();
             FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
-                new RandomService());
+                    new RandomService());
             Faker faker = new Faker(new Locale("en-US"));
-
+            List<User> arrofusers = new ArrayList<>();
+            List<Session> arrofsessions = new ArrayList<>();
             for (int i = 0; i < 25; i++)
             {
                 new User();
                 User fakeUser;
 
                 fakeUser = new User(faker.name().username(),
-                    "password");
+                        "password");
 //                    nameFaker.internet()
 //                        .emailAddress());
                 fakeUser.getRoles()
-                    .add(new UserRoles(fakeUser,
-                        r2));
+                        .add(new UserRoles(fakeUser,
+                                r2));
 //                fakeUser.getUseremails()
 //                    .add(new Useremail(fakeUser,
 //                        fakeValuesService.bothify("????##@gmail.com")));
-                userService.save(fakeUser);
+                arrofusers.add(fakeUser);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Date d = new GregorianCalendar(
+                        rand.nextInt(200) + 1820,
+                        rand.nextInt(12)+1,
+                        rand.nextInt(28) + 1)
+                        .getTime();
+                Location loc = new Location(
+                        faker.address().streetName() + " "
+                                + faker.address().buildingNumber() + " ",
+                        faker.address().city(),
+                        faker.address().state(),
+                        faker.address().zipCode());
+                Session s = new Session(
+                        faker.chuckNorris().fact(),
+                        faker.job().field(),
+                        d,
+                        faker.bothify("## minutes"),
+                        faker.dog().breed(),
+                        rand.nextInt(50) + 1);
+                s.setLocations(loc);
+                arrofsessions.add(s);
+                sessionService.save(s);
+                User rndUser = arrofusers.remove(rand.nextInt(arrofusers.size()));
+                Attendees a = new Attendees(s, rndUser, true);
+                rndUser.getSessions().add(a);
+                userService.save(rndUser);
+            }
+            for (User u : arrofusers)
+            {
+                Attendees a =
+                        new Attendees(
+                                arrofsessions.get(rand.nextInt(arrofsessions.size())),
+                                u,
+                                false);
+                u.getSessions().add(a);
+                userService.save(u);
             }
         }
     }

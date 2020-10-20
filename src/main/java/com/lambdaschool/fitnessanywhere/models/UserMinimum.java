@@ -8,6 +8,10 @@ import javax.validation.constraints.Email;
  */
 public class UserMinimum
 {
+    // adding string "role" so I can add roles at login
+    private String role;
+
+
     /**
      * The username (String)
      */
@@ -84,4 +88,14 @@ public class UserMinimum
 //    {
 //        this.primaryemail = primaryemail;
 //    }
+
+    public String getRole()
+    {
+        return role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
 }
