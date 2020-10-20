@@ -81,4 +81,13 @@ public class SessionController
         sessionService.update(updateSession, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/session/{id}")
+    public ResponseEntity<?> deleteSessionById(
+            @PathVariable
+                    long id)
+    {
+        sessionService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

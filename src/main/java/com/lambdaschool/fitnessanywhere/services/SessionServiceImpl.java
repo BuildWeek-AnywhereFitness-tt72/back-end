@@ -116,4 +116,13 @@ public class SessionServiceImpl implements SessionService
         return sessrepos.save(currentSession);
     }
 
+    @Transactional
+    @Override
+    public void delete(long id)
+    {
+        sessrepos.findById(id).orElseThrow(() -> new ResourceNotFoundException("Session" +
+                " id " + id + " Not Found"));
+        sessrepos.deleteById(id);
+    }
+
 }

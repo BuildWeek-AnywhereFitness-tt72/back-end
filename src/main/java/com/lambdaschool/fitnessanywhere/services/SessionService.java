@@ -19,6 +19,7 @@ public interface SessionService
 
     Session update(Session session, Long id);
 
+    void delete(long id);
 
 
 }
