@@ -39,7 +39,7 @@ public class SessionServiceImpl implements SessionService
         sessrepos.findAll().iterator().forEachRemaining(rlist::add);
         return rlist;
     }
-
+    // post / put
     @Transactional
     @Override
     public Session save(Session session)
@@ -51,10 +51,18 @@ public class SessionServiceImpl implements SessionService
             sessrepos.findById(session.getSessionid())
                 .orElseThrow(() -> new ResourceNotFoundException("Session id " + session.getSessionid() + " not found!"));
             newSession.setSessionid(session.getSessionid());
+            newSession.getUsers().clear();
+            for(Attendees ai : session.getUsers())
+            {
+                Attendees a = new Attendees(newSession,
+                        ai.getUser(),
+                        ai.isInstructor());
+                newSession.getUsers().add(a);
+            }
         }
-        if (session.getUsers().size() > 0)
+        if (session.getSessionid() == 0 && session.getUsers().size() > 0)
         {
-            throw new ResourceNotFoundException("Users are not updated through " +
+            throw new ResourceNotFoundException("Users are not added through " +
                     "Sessions");
         }
         newSession.setName(session.getName());
@@ -74,16 +82,23 @@ public class SessionServiceImpl implements SessionService
         return null;
     }
 
+    // patch
     @Transactional
     @Override
     public Session update(Session session, Long id)
     {
+        Session currentSession = findSessionById(id);
         if (session.getUsers().size() > 0)
         {
-            throw new ResourceNotFoundException("Users are not updated through " +
-                    "Sessions");
+            currentSession.getUsers().clear();
+            for(Attendees ai : session.getUsers())
+            {
+                Attendees a = new Attendees(currentSession,
+                        ai.getUser(),
+                        ai.isInstructor());
+                currentSession.getUsers().add(a);
+            }
         }
-        Session currentSession = findSessionById(id);
         if (session.getName() != null)
         {
             currentSession.setName(session.getName());
@@ -110,8 +125,7 @@ public class SessionServiceImpl implements SessionService
         }
         if (session.getLocations() != null)
         {
-            throw new ResourceNotFoundException("Locations can not be patched through " +
-                    "Sessions");
+            currentSession.setLocations(session.getLocations());
         }
         return sessrepos.save(currentSession);
     }
