@@ -23,7 +23,7 @@ public class Session
 
     private String intensity;
 
-    private long maxsize;
+    private Long maxsize;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "locationid") // , nullable = false)
@@ -34,6 +34,11 @@ public class Session
     @OneToMany(mappedBy = "sessions", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "sessions", allowSetters = true)
     private Set<Attendees> users = new HashSet<>();
+
+    public void setUsers(Set<Attendees> users)
+    {
+        this.users = users;
+    }
 
     public Set<Attendees> getUsers()
     {
@@ -46,7 +51,7 @@ public class Session
     }
 
     public Session(String name, String type, Date time, String duration,
-                   String intensity, long maxsize)
+                   String intensity, Long maxsize)
     {
         this.name = name;
         this.type = type;
@@ -115,12 +120,12 @@ public class Session
         this.intensity = intensity;
     }
 
-    public long getMaxsize()
+    public Long getMaxsize()
     {
         return maxsize;
     }
 
-    public void setMaxsize(long maxsize)
+    public void setMaxsize(Long maxsize)
     {
         this.maxsize = maxsize;
     }

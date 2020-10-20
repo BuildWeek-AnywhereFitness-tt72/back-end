@@ -10,12 +10,15 @@ public interface SessionService
 {
     List<Session> findAll();
 
+    Session findSessionById(long id);
+
     Session save(Session session);
 
     // add user to Attendeees
     Session save(Session session, User user, boolean instructor);
 
-    Session findSessionById(long id);
+    Session update(Session session, Long id);
+
 
 
 }

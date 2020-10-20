@@ -1,6 +1,8 @@
 package com.lambdaschool.fitnessanywhere.services;
 
 import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
+import com.lambdaschool.fitnessanywhere.models.Attendees;
+import com.lambdaschool.fitnessanywhere.models.Location;
 import com.lambdaschool.fitnessanywhere.models.Session;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.repository.LocationRepository;
@@ -19,6 +21,16 @@ public class SessionServiceImpl implements SessionService
     @Autowired
     SessionRepository sessrepos;
 
+    @Autowired
+    LocationRepository locrepos;
+
+    @Override
+    public Session findSessionById(long id)
+    {
+        return sessrepos.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Session id " + id + " not found")
+        );
+    }
 
     @Override
     public List<Session> findAll()
@@ -28,29 +40,80 @@ public class SessionServiceImpl implements SessionService
         return rlist;
     }
 
+    @Transactional
     @Override
     public Session save(Session session)
     {
+        Session newSession = new Session();
+
+        if (session.getSessionid() != 0)
+        {
+            sessrepos.findById(session.getSessionid())
+                .orElseThrow(() -> new ResourceNotFoundException("Session id " + session.getSessionid() + " not found!"));
+            newSession.setSessionid(session.getSessionid());
+        }
         if (session.getUsers().size() > 0)
         {
-            throw new ResourceNotFoundException("Attendees are not updated through " +
+            throw new ResourceNotFoundException("Users are not updated through " +
                     "Sessions");
         }
-        return sessrepos.save(session);
+        newSession.setName(session.getName());
+        newSession.setType(session.getType());
+        newSession.setTime(session.getTime());
+        newSession.setDuration(session.getDuration());
+        newSession.setIntensity(session.getIntensity());
+        newSession.setMaxsize(session.getMaxsize());
+        newSession.setLocations(session.getLocations());
+        return sessrepos.save(newSession);
     }
 
-
+    @Transactional
     @Override
     public Session save(Session session, User user, boolean instructor)
     {
         return null;
     }
 
+    @Transactional
     @Override
-    public Session findSessionById(long id)
+    public Session update(Session session, Long id)
     {
-        return sessrepos.findById(id).orElseThrow(() ->
-            new ResourceNotFoundException("Session id " + id + " not found")
-        );
+        if (session.getUsers().size() > 0)
+        {
+            throw new ResourceNotFoundException("Users are not updated through " +
+                    "Sessions");
+        }
+        Session currentSession = findSessionById(id);
+        if (session.getName() != null)
+        {
+            currentSession.setName(session.getName());
+        }
+        if (session.getType() != null)
+        {
+            currentSession.setType(session.getType());
+        }
+        if (session.getTime() != null)
+        {
+            currentSession.setTime(session.getTime());
+        }
+        if (session.getDuration() != null)
+        {
+            currentSession.setDuration(session.getDuration());
+        }
+        if (session.getIntensity() != null)
+        {
+            currentSession.setIntensity(session.getIntensity());
+        }
+        if (session.getMaxsize() != null)
+        {
+            currentSession.setMaxsize(session.getMaxsize());
+        }
+        if (session.getLocations() != null)
+        {
+            throw new ResourceNotFoundException("Locations can not be patched through " +
+                    "Sessions");
+        }
+        return sessrepos.save(currentSession);
     }
+
 }

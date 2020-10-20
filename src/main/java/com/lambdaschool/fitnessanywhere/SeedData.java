@@ -163,17 +163,20 @@ public class SeedData
                         d,
                         faker.bothify("## minutes"),
                         faker.dog().breed(),
-                        rand.nextInt(50) + 1);
+                        (long) (rand.nextInt(50) + 1));
                 s.setLocations(loc);
-                arrofsessions.add(s);
-                sessionService.save(s);
+                arrofsessions.add(sessionService.save(s));
                 User rndUser = arrofusers.remove(rand.nextInt(arrofusers.size()));
-                Attendees a = new Attendees(s, rndUser, true);
+                // need to get s from arrofsessions
+                Attendees a = new Attendees(arrofsessions.get(arrofsessions.size()-1),
+                        rndUser,
+                        true);
                 rndUser.getSessions().add(a);
                 userService.save(rndUser);
             }
             for (User u : arrofusers)
             {
+
                 Attendees a =
                         new Attendees(
                                 arrofsessions.get(rand.nextInt(arrofsessions.size())),
