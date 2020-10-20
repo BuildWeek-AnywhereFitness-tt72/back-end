@@ -183,6 +183,19 @@ public class UserServiceImpl
                 }
             }
 
+            if (user.getSessions().size() > 0)
+            {
+                currentUser.getSessions()
+                        .clear();
+                for (Attendees ar : user.getSessions())
+                {
+                    Session addSession = sessionService.findSessionById(ar.getSessions()
+                            .getSessionid());
+                    currentUser.getSessions()
+                            .add(new Attendees(addSession,
+                                    currentUser, ar.isInstructor()));
+                }
+            }
 //            if (user.getUseremails()
 //                .size() > 0)
 //            {
