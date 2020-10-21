@@ -70,7 +70,7 @@ public class RoleServiceImpl
             return rr;
         } else
         {
-            throw new ResourceNotFoundException(name);
+            throw new ResourceNotFoundException("Role " + name + " Not Found");
         }
     }
 

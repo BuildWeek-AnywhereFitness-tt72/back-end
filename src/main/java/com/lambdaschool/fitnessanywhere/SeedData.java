@@ -87,6 +87,10 @@ public class SeedData
         u1.getRoles()
             .add(new UserRoles(u1,
                 r3));
+        u1.getRoles()
+            .add(new UserRoles(u1, r4));
+        u1.getRoles()
+            .add(new UserRoles(u1, r5));
 //        u1.getUseremails()
 //            .add(new Useremail(u1,
 //                "admin@email.local"));

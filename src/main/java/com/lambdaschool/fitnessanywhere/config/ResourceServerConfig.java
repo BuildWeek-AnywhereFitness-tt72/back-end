@@ -61,9 +61,18 @@ public class ResourceServerConfig
                 "/swagger-ui.html",
                 "/v2/api-docs",
                 "/webjars/**",
-                "/createnewuser",
-                "/sessions/**")
+                "/createnewuser")
             .permitAll()
+            .antMatchers(HttpMethod.POST, "/sessions/**")
+            .hasAnyRole("INSTRUCTOR, ADMIN")
+            .antMatchers(HttpMethod.PUT, "/sessions/**")
+            .hasAnyRole("INSTRUCTOR, ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/sessions/**")
+            .hasAnyRole("INSTRUCTOR, ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/sessions/**")
+            .hasAnyRole("INSTRUCTOR, ADMIN")
+            .antMatchers("/sessions/**")
+            .authenticated()
             .antMatchers(HttpMethod.POST,
                 "/users/**")
             .hasAnyRole("ADMIN")
@@ -103,6 +112,8 @@ public class ResourceServerConfig
         http.headers()
             .frameOptions()
             .disable();
+        // TRY TO DISABLE PREFLIGHT CORS CRAP
+        http.cors();
 
         // This application implements its own logout procedure so disable the one built into Spring Security
         http.logout()

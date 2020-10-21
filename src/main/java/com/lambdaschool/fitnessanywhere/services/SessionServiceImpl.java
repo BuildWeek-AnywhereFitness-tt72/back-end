@@ -77,9 +77,10 @@ public class SessionServiceImpl implements SessionService
 
     @Transactional
     @Override
-    public Session save(Session session, User user, boolean instructor)
+    public Session save(Session session, User user)
     {
-        return null;
+        session.getUsers().add(new Attendees(session, user, true));
+        return sessrepos.save(session);
     }
 
     // patch

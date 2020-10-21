@@ -3,11 +3,13 @@ package com.lambdaschool.fitnessanywhere.controllers;
 import com.lambdaschool.fitnessanywhere.models.Session;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.services.SessionService;
+import com.lambdaschool.fitnessanywhere.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +24,9 @@ public class SessionController
 {
     @Autowired
     private SessionService sessionService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/sessions",
             produces = "application/json")
@@ -40,10 +45,13 @@ public class SessionController
     }
 
     @PostMapping(value = "/session", consumes = "application/json")
-    public ResponseEntity<?> addNewSession(@Valid @RequestBody Session newSession) throws URISyntaxException
+    public ResponseEntity<?> addNewSession(Authentication authentication,
+                                           @Valid @RequestBody Session newSession) throws URISyntaxException
     {
+        User u = userService.findByName(authentication.getName());
+        System.out.println("Sessions endpoint hit");
         newSession.setSessionid(0);
-        newSession = sessionService.save(newSession);
+        newSession = sessionService.save(newSession, u);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();

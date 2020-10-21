@@ -64,6 +64,7 @@ public class OpenController
         throws
         URISyntaxException
     {
+        System.out.println("attempting to add user: " + newminuser);
         // Create the user
         User newuser = new User();
 
