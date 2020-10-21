@@ -117,6 +117,7 @@ public class UserController
      * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see UserService#save(User) UserService.save(User)
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/user",
         consumes = "application/json")
     public ResponseEntity<?> addNewUser(
@@ -154,6 +155,7 @@ public class UserController
      * @return status of OK
      * @see UserService#save(User) UserService.save(User)
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/user/{userid}",
         consumes = "application/json")
     public ResponseEntity<?> updateFullUser(
@@ -180,6 +182,7 @@ public class UserController
      * @return A status of OK
      * @see UserService#update(User, long) UserService.update(User, long)
      */
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PatchMapping(value = "/user/{id}",
         consumes = "application/json")
     public ResponseEntity<?> updateUser(
@@ -225,5 +228,20 @@ public class UserController
         User u = userService.findByName(authentication.getName());
         return new ResponseEntity<>(u,
             HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/updateuserinfo",
+        consumes = {"application/json"})
+    public ResponseEntity<?> updateCurrentUser(
+            Authentication authentication,
+        @RequestBody
+            User updateUser)
+    {
+        User oldUser = userService.findByName(authentication.getName());
+        updateUser.setUserid(oldUser.getUserid());
+        updateUser.setPasswordNoEncrypt(oldUser.getPassword());
+        updateUser.setRoles(oldUser.getRoles());
+        userService.save(updateUser);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -79,9 +79,9 @@ public class ResourceServerConfig
             .antMatchers(HttpMethod.DELETE,
                 "/users/**")
             .hasAnyRole("ADMIN")
-            .antMatchers(HttpMethod.PUT,
-                "/users/**")
-            .hasAnyRole("ADMIN")
+//            .antMatchers(HttpMethod.PUT,
+//                "/users/**")
+//            .hasAnyRole("ADMIN")
             .antMatchers("/users/**",
                 "/useremails/**",
                 "/oauth/revoke-token",
