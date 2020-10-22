@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -150,11 +151,12 @@ public class SeedData
             }
             for (int i = 0; i < 10; i++)
             {
-                Date d = new GregorianCalendar(
-                        rand.nextInt(200) + 1820,
-                        rand.nextInt(12)+1,
-                        rand.nextInt(28) + 1)
-                        .getTime();
+//                LocalDateTime d = new GregorianCalendar(
+                LocalDateTime d = LocalDateTime.now();
+//                        rand.nextInt(200) + 1820,
+//                        rand.nextInt(12)+1,
+//                        rand.nextInt(28) + 1)
+//                        .getTime();
                 Location loc = new Location(
                         faker.address().streetName() + " "
                                 + faker.address().buildingNumber() + " ",

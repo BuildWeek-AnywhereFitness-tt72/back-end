@@ -3,6 +3,7 @@ package com.lambdaschool.fitnessanywhere.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -17,7 +18,7 @@ public class Session
 
     private String type;
 
-    private Date time;
+    private LocalDateTime time;
 
     private String duration;
 
@@ -50,7 +51,7 @@ public class Session
         // required by jpa
     }
 
-    public Session(String name, String type, Date time, String duration,
+    public Session(String name, String type, LocalDateTime time, String duration,
                    String intensity, Long maxsize)
     {
         this.name = name;
@@ -90,12 +91,12 @@ public class Session
         this.type = type;
     }
 
-    public Date getTime()
+    public LocalDateTime getTime()
     {
         return time;
     }
 
-    public void setTime(Date time)
+    public void setTime(LocalDateTime time)
     {
         this.time = time;
     }

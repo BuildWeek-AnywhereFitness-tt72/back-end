@@ -1,8 +1,10 @@
 package com.lambdaschool.fitnessanywhere.controllers;
 
+import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.models.UserMinimum;
 import com.lambdaschool.fitnessanywhere.models.UserRoles;
+import com.lambdaschool.fitnessanywhere.repository.UserRepository;
 import com.lambdaschool.fitnessanywhere.services.RoleService;
 import com.lambdaschool.fitnessanywhere.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * The class allows access to endpoints that are open to all users regardless of authentication status.
@@ -33,6 +37,8 @@ import java.util.Set;
 @RestController
 public class OpenController
 {
+    @Autowired
+    UserRepository userrepos;
     /**
      * A method in this controller adds a new user to the application so needs access to User Services to do this.
      */
@@ -68,6 +74,13 @@ public class OpenController
         // Create the user
         User newuser = new User();
 
+        if (StreamSupport.stream(userrepos.findAll().spliterator(), false).filter(u -> u.getUsername().equals(newminuser.getUsername().toLowerCase())).collect(Collectors.toList()).size() > 0)
+        {
+            System.out.println("I EXPLODED BUT NOBODY CARES!");
+            throw new ResourceNotFoundException("Username " + newminuser.getUsername() +
+                " " +
+                "already exists!");
+        }
         newuser.setUsername(newminuser.getUsername());
         newuser.setPassword(newminuser.getPassword());
 //        newuser.setPrimaryemail(newminuser.getPrimaryemail());

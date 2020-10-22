@@ -1,5 +1,6 @@
 package com.lambdaschool.fitnessanywhere.controllers;
 
+import com.lambdaschool.fitnessanywhere.exceptions.ResourceNotFoundException;
 import com.lambdaschool.fitnessanywhere.models.Session;
 import com.lambdaschool.fitnessanywhere.models.User;
 import com.lambdaschool.fitnessanywhere.services.SessionService;
@@ -16,7 +17,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/sessions")
@@ -51,6 +56,9 @@ public class SessionController
         User u = userService.findByName(authentication.getName());
         System.out.println("Sessions endpoint hit");
         newSession.setSessionid(0);
+        // convert date string to Date object
+        //date = formatter.parse(newSession.getTime().toString());
+
         newSession = sessionService.save(newSession, u);
 
         // set the location header for the newly created resource
@@ -68,14 +76,22 @@ public class SessionController
 
     @PutMapping(value = "/session/{sessionid}",
             consumes = "application/json")
-    public ResponseEntity<?> updateFullSession(
+    public ResponseEntity<?> updateFullSession(Authentication authentication,
             @Valid
             @RequestBody
                     Session updateSession,
             @PathVariable
                     long sessionid)
     {
+        User u = userService.findByName(authentication.getName());
+        // I need to check if user is an instructor for this session.
+        // so that would be
         updateSession.setSessionid(sessionid);
+        if (u.getSessions().stream().filter(a -> a.isInstructor() == true && a.getUser().getUserid() == u.getUserid()).collect(Collectors.toList()).size() == 0)
+        {
+            throw new ResourceNotFoundException("User " + u.getUsername() + " is not an" +
+                " instructor of Session " + sessionid);
+        }
         sessionService.save(updateSession);
 
         return new ResponseEntity<>(HttpStatus.OK);
