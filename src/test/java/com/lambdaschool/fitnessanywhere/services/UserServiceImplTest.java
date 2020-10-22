@@ -299,6 +299,14 @@ public class UserServiceImplTest
                 .getUsername());
     }
 
+    @Test(expected = ResourceNotFoundException.class)
+    public void alreadyExistsSave()
+    {
+        Mockito.when(userrepos.save(any(User.class)))
+            .thenReturn(userList.get(0));
+
+        userService.save(userList.get(0));
+    }
     @Test
     public void savePut()
     {

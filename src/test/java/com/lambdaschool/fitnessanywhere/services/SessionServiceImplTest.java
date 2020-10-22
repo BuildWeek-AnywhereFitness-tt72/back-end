@@ -14,9 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = FitnessAnywhereApplication.class)
@@ -34,14 +36,14 @@ public class SessionServiceImplTest
     public void setUp() throws
         Exception
     {
-//        sessionList = new ArrayList<>();
-//        Date date = new GregorianCalendar(2020, 11, 11).getTime();
-//        Location l = new Location("Sesame Street", "New York", "New York", "000000");
-//
-//        Session s1 = new Session("Test Name", "test yoga", date, "30 minutes",
-//            "intense", (long) 15);
-//        s1.setLocations(l);
-//        sessionList.add(s1);
+        sessionList = new ArrayList<>();
+        LocalDateTime date = LocalDateTime.now();
+        Location l = new Location("Sesame Street", "New York", "New York", "000000");
+
+        Session s1 = new Session("Test Name", "test yoga", date, "30 minutes",
+            "intense", (long) 15);
+        s1.setLocations(l);
+        sessionList.add(s1);
     }
 
     @Test
@@ -90,5 +92,20 @@ public class SessionServiceImplTest
         sessionService.delete(1L);
         assertEquals(1,
             sessionList.size());
+    }
+    @Test
+    public void save()
+    {
+        LocalDateTime date = LocalDateTime.now();
+        Location l = new Location("Sesame Street", "New York", "New York", "000000");
+
+        Session s1 = new Session("Test Save Name", "test yoga", date, "30 minutes",
+            "intense", (long) 15);
+        s1.setLocations(l);
+
+        Mockito.when(sessrepos.save(any(Session.class)))
+            .thenReturn(s1);
+
+        assertEquals("Test Save Name", sessrepos.save(s1).getName());
     }
 }
